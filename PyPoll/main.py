@@ -41,7 +41,7 @@ with open(results, newline='') as csvfile:
         votes = row[1]
         percent_votes = round((votes/len(total)) * 100, 2)
         print(f'{candidate}: {percent_votes}% ({str(votes)})')
-    
+    # Determine the winner
     winner = max(candidates, key=candidates.get)
 
     print("------------------------------------")
@@ -56,12 +56,12 @@ with open(results, newline='') as csvfile:
     output_file.write(f'Election Results\n')
     output_file.write(f'-------------------------------------\n')
     output_file.write(f'Total Votes {len(total)}\n')
- 
+    #write each candidate to file
     for row in candidates.items():
         candidate = row[0]
         votes = row[1]
         percent_votes = round((votes/len(total)) * 100, 2)
         output_file.write(f'{candidate}: {percent_votes}% ({str(votes)})\n')
-    
+    #write winner to file
     output_file.write(f'-------------------------------------\n')
     output_file.write(f'Winner: {winner}\n')
