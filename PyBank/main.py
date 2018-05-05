@@ -8,7 +8,7 @@ budget1 = input(f'what csv file do you want to use? (include .csv) ')
 
 #Function to average values in a list
 def average(lst):
-    return sum(lst)/len(lst)
+    return sum(lst)/(len(lst))
 
 # Open csvfile
 with open(budget1, newline='') as csvfile:
@@ -26,6 +26,7 @@ with open(budget1, newline='') as csvfile:
 
     # defaults month1 value to 0 
     month1 = 0
+    firstline = True
 
 
     #  Each row is read as a row
@@ -33,7 +34,6 @@ with open(budget1, newline='') as csvfile:
         
         # append month value index 0 of row to month list
         months.append(row[0])
-        
         # changed revenue value (index 1 of row) to an integer
         rev = int(row[1])
 
@@ -44,13 +44,18 @@ with open(budget1, newline='') as csvfile:
         month2 = int(row[1])
         
         # calculate revenue change for this value and previous value
-        change = month2 - month1
+        #skip first row because there is no change.
+        if firstline:
+            firstline = False
+        else:
+            change = month2 - month1
+
+            # append change value to change_lists
+            change_list.append(change)
         
-        # append change value to change_lists
-        change_list.append(change)
-        
-        #Set month 1 vaue to revenue value of row
+        #Set month 1 value to revenue value of row
         month1 = int(row[1])
+
 
  #combine original csv file with change list        
 cleaned_csv = zip(months, change_list)
@@ -62,6 +67,8 @@ increase = max(cleaned_csv, key=lambda item:item[1])
 cleaned_csv = zip(months, change_list)
 #find row with min revenue cahnge from change list
 decrease = min(cleaned_csv, key=lambda item:item[1])
+
+
 
 #print output in terminal
 print(f'Financial Analysis')
@@ -86,3 +93,5 @@ Greatest Increase in Revenue: {increase[0]} (${increase[1]})
 Greatest Decrease in Revenue: {decrease[0]} (${decrease[1]})
 """
 )
+
+
