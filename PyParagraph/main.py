@@ -23,6 +23,20 @@ with open(paragraph_path, 'r') as paragraph:
     letter = 0
     for letters in words:
        letter += len(letters)
-    print(f'Average Letter Count: {letter/len(words)}')
-    print(f'Average Sentence Lenth: {len(words)/len(sentences)}')
+    print(f'Average Letter Count: {round(letter/len(words),2)}')
+    print(f'Average Sentence Lenth: {round(len(words)/len(sentences),2)}')
     print(" ")
+
+
+output_file = open("Paragraph_Analysis.txt", "w")
+
+    # write financial analysis output
+output_file.write( f"""
+Paragraph Analysis
+-------------------------------------
+Approximate Word Count: {len(words)}
+Approximate Sentence Count: {len(sentences)}
+Average Letter Count: {round(letter/len(words),2)}
+Average Sentence Lenth: {round(len(words)/len(sentences),2)}
+"""
+)
